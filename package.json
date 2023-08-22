@@ -1,0 +1,36 @@
+{
+  "name": "mcmemes",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "bot for displayng memesa",
+  "main": "index.js",
+  "scripts": {
+    "test": "mems"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xeonis/mcmemebot.git"
+  },
+  "keywords": [
+    "bot",
+    "nodejs",
+    "discord",
+    "telegram",
+    "vk"
+  ],
+  "author": "Xeonis (Michail Sivak)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xeonis/mcmemebot/issues"
+  },
+  "homepage": "https://github.com/Xeonis/mcmemebot#readme",
+  "dependencies": {
+    "@vk-io/hear": "^1.1.1",
+    "discord.js": "^14.13.0",
+    "node-telegram-bot-api": "^0.61.0",
+    "vk-io": "^4.8.3"
+  },
+  "devDependencies": {
+    "prettier": "3.0.2"
+  }
+}
