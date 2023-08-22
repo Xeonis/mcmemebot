@@ -2,7 +2,7 @@
 import { REST, Routes } from 'discord.js';
 
 */
-import settings from './settings.js';
+import settings from './config.js';
 /*
 const commands = [
   {
