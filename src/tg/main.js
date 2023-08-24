@@ -1,21 +1,23 @@
-import TelegramBot from 'node-telegram-bot-api'
+const TelegramBot = require('node-telegram-bot-api') 
+
+async function createClient(settings) {
+  try {
+    const token = settings.telegram.token;
+    const client = new TelegramBot(token, {polling: true});
+    return client
+  } catch (error) {
+    console.log("Canno start telegram bot bot");
+    console.error(error);
+    throw new Error("TG bot not started")
+  }
+}
 
 
-async function 
 
-const token = settings.telegram.token;
 
-const bot = new TelegramBot(token, {polling: true});
 
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  const resp = match[1];
-  bot.sendMessage(chatId, resp);
-});
+module.exports = {
+  createClient,
+}
 
-bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
 
-  console.log(msg)
-  bot.sendMessage(chatId, "I get ur message"+ msg.text)
-});

@@ -1,6 +1,9 @@
-import { REST, Routes } from 'discord.js';
-import { Client, GatewayIntentBits } from 'discord.js';
-
+const REST  = require('discord.js').REST
+const Routes  = require('discord.js').Routes
+const Client  = require('discord.js').Client
+const GatewayIntentBits  = require('discord.js').GatewayIntentBits
+const WebhookClient  = require('discord.js').WebhookClient
+const Content = require('./content.js')
 
 
 async function createClient(settings) {
@@ -12,16 +15,11 @@ async function createClient(settings) {
         });
 
         await client.login(settings.discord.token);
-
-        let clientguilds = client.guilds.cache
-        clientguilds[0]
-
-        console.log(workGuilds.name)
-
         return client
     } catch (error) {
         console.log("Canno start Discord bot");
         console.error(error);
+        throw new Error("Canno crearte dis client")
     }
     
 }
@@ -40,6 +38,40 @@ function interactionCreate (client) {
     });
 }
 
+/**
+ * 
+ * @param {Client} client 
+ */
+async function CreateWebHook (client,idserver,idchannel,name,urlImage) {
+    try {
+        let channel = await (await client.guilds.fetch(idserver)).channels.fetch(idchannel)
+        channel.createWebhook({
+            name: 'bla-bla' | name,
+            avatar: 'https://i.imgur.com/AfFp7pu.png' | urlImage,
+        })
+            .then(webhook => console.log(`Created webhook ${webhook}`))
+            .catch(console.error);
+    } catch (error) {
+        throw new Error("Canno open webhook")
+    }
+} 
+
+
+
+
+async function ConnectToWebHook (webhookURL,content) {
+    try {
+
+        const webhookClient = new WebhookClient({ url: webhookURL });
+        webhookClient.send({
+            content: 'Webhook test',
+            username: 'some-username',
+            avatarURL: 'https://i.imgur.com/AfFp7pu.png',
+        });
+    } catch (error) {
+        throw new Error("Canno open webhook")
+    }
+} 
 
 
 
@@ -70,9 +102,10 @@ async function registerComands () {
 
 
 
-
-
-export default {
+module.exports = {
     createClient,
-    interactionCreate
+    interactionCreate,
+    CreateWebHook,
+    ConnectToWebHook
 }
+
