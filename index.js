@@ -3,6 +3,8 @@ const tgWorker  = require("./src/tg/main.js");
 const discordWorker  = require("./src/discord/main.js")
 const config = require('./config.json') ;
 
+const log = new (require("./logger/main.js").Logger)("",true)
+
 //import * as  https from "https";
 //import * as fs from 'fs';
 var downloadDir = './images';
@@ -12,6 +14,7 @@ let something = ''
 void async function () { 
 
 try{
+    log.ok("Begin load")
     const discordClient = await discordWorker.createClient(config)
     const tgClient = await tgWorker.createClient(config)
 

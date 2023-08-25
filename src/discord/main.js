@@ -5,20 +5,19 @@ const GatewayIntentBits  = require('discord.js').GatewayIntentBits
 const WebhookClient  = require('discord.js').WebhookClient
 const Content = require('./content.js')
 
-
+const log = new (require('../../logger/main.js').Logger)("",true)
 async function createClient(settings) {
     try {
         const client = new Client({ intents: [GatewayIntentBits.Guilds] });
     
         client.on('ready', () => {
-            console.log(`Logged in as ${client.user.tag}!`);
+            log.ok(`Logged in as ${client.user.tag}!`);
         });
 
         await client.login(settings.discord.token);
         return client
     } catch (error) {
-        console.log("Canno start Discord bot");
-        console.error(error);
+        log.error("Canno start Discord bot",error);
         throw new Error("Canno crearte dis client")
     }
     

@@ -81,9 +81,7 @@ class Logger {
     constructor (name = '', time = false,state) {
         this.name = (name && name != '')? name: undefined;
         this.time = (time)? true : false
-
-        this.ShortLifeLoggerPool = new Map()
-
+        
         this.LoggerState = this.#LoggerStates.get("success");
 
         this.timer = new Timer()
@@ -123,7 +121,7 @@ class Logger {
     #contentBuilder (type,content = []) {
         let TextContent = (content.length > 1)? content : content.join("");
         if (this.likeAJSON && content.length > 1) {
-            TextContent = JSON.stringify([content], null, this.spaces)
+            TextContent = JSON.stringify(content, null, this.spaces)
         }
         return this.#setPrefixDraw(type)(TextContent)
     }
@@ -136,8 +134,8 @@ class Logger {
         this.#setTime()
     }
 
-    info (...content) {
-        const type = "info"
+    success (...content) {
+        const type = "success"
         this.#doWhenLog(type,content)
         if (!this.#LoggerStates.has(type)) {
             if (this.LoggerState.level > this.#LoggerStates.get(type).level) return 
@@ -233,24 +231,6 @@ class Logger {
     
 }
 
-class ShortLifeLogger extends Logger {
-    constructor (name, time,state) {
-        super (name, time,state)
-    }
-}
-
-
-let so = new Logger("nmae",true)
-so.likeAJSON = true
-so.info("text sample1","text sample2",STATES)
-so.info("text sample1")
-so.log("text sample1")
-so.debug("text sample1")
-so.info("text sample1")
-so.warn("text sample1")
-so.error("text sample1")
-so.ok("text sample1")
-so.wait("text sample1")
 
 module.exports = {
     Logger
